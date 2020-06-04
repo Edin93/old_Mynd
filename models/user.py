@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+"""
+Containing the User class.
+"""
+
+from datetime import datetime
+import models
+from models.base_model import BaseModel, Base
+from models.post import Post
+from os import getenv
+import sqlalchemy
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+import hashlib
+
+
+class User(BaseModel, Base):
+    """The User class."""
+    __tablename__ = 'users'
+    username = Column(String(155), nullable=False, primary_key=True)
+    fullname = Column(String(155), nullable=True)
+    email = Column(String(155), nullable=False)
+    password = Column(String(155), nullable=False)
+    last_login = Column(DateTime, default=datetime.utcnow, nullable=True)
+    profile_img = image_attachment('Post')
+
+    def __init__(self, *args, **kwargs):
+        """initializes user"""
+        if kwargs:
+            plain_text_pwd = kwargs.pop('password', None)
+        if plain_text_pwd:
+            User.hash_password(self, plain_text_pwd)
+        super().__init__(*args, **kwargs)
+
+    def hash_password(self, value):
+        """Hash user password md5"""
+        v = hashlib.md5(value.encode()).hexdigest()
+        setattr(self, 'password', v)
