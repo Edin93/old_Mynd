@@ -4,7 +4,7 @@ Containing the class DBStorage.
 """
 
 import models
-from models.base_model import BaseModel, Base
+from models.base_model import Base
 from models.user import User
 from models.comment import Comment
 from models.topic import Topic
