@@ -8,9 +8,6 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, ForeignKey, Integer, Unicode
 from sqlalchemy.dialects.mysql import TEXT
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy_imageattach.entity import Image, image_attachment
-import uuid
 
 
 class Post(BaseModel, Base, Image):
@@ -20,6 +17,10 @@ class Post(BaseModel, Base, Image):
     username = Column(String(255), ForeignKey('users.username'))
     user_id = Column(String(255), ForeignKey('users.id'))
     description = Column(TEXT, nullable=True)
+    comments = relationship("Comment", backref="posts",
+                            cascade="all, delete, delete-orphan")
+    likes = relationship("PostLike", backref="posts",
+                            cascade="all, delete, delete-orphan")
 
     def __init__(*args, **kwargs):
         """Initializes post."""

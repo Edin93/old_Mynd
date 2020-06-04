@@ -9,14 +9,14 @@ from models.user import User
 from models.comment import Comment
 from models.topic import Topic
 from models.log import Log
-from models.like import Like
+from models.post_like import PostLike
 from models.post import Post
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {"User": User, "Comment": Comment, "Topic": Topic, "Log": Log,
-           "Like": Like, "Post": Post}
+           "PostLike": PostLike, "Post": Post}
 
 
 class DBStorage:

@@ -12,6 +12,7 @@ import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import hashlib
+from sqlalchemy_imageattach.entity import Image, image_attachment
 
 
 class User(BaseModel, Base):
@@ -23,6 +24,11 @@ class User(BaseModel, Base):
     password = Column(String(155), nullable=False)
     last_login = Column(DateTime, default=datetime.utcnow, nullable=True)
     profile_img = image_attachment('Post')
+    posts = relationship("Post", backref="user")
+    comments = relationship("Comment", backref="user")
+    logs = relationship("Log", backref="user")
+    topics = relationship("Topic", backref="user")
+    likes = relationship("PostLike", backref="user")
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
