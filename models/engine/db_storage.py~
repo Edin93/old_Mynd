@@ -21,7 +21,7 @@ classes = {"User": User, "Comment": Comment, "Topic": Topic, "Log": Log,
 
 class DBStorage:
     """DBStorage class."""
-__engine = None
+    __engine = None
     __session = None
 
     def __init__(self):

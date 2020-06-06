@@ -7,8 +7,9 @@ from datetime import datetime
 import models
 from models.base_model import BaseModel, Base
 import sqlalchemy
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Table, ForeignKey
 from sqlalchemy.dialects.mysql import TEXT
+from sqlalchemy.orm import relationship
 
 
 post_topics = Table('post_topics', Base.metadata,

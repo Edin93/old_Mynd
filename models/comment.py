@@ -5,7 +5,7 @@ Containing the Comment class.
 
 import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, ForeignKey, Integer, Unicode
+from sqlalchemy import Column, ForeignKey, Integer, Unicode, String
 from sqlalchemy.dialects.mysql import TEXT
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base

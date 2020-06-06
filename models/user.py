@@ -9,7 +9,7 @@ from models.base_model import BaseModel, Base
 from models.post import Post
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import relationship
 import hashlib
 from sqlalchemy_imageattach.entity import Image, image_attachment
