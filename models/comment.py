@@ -17,10 +17,9 @@ class Comment(BaseModel, Base):
     """The Comment class."""
     __tablename__ = 'comments'
     text = Column(TEXT, nullable=False)
-    username = Column(String(255), ForeignKey('users.username'), nullable=False)
-    user_id = Column(String(255), ForeignKey('users.id'), nullable=False)
-    post_id = Column(String(255), ForeignKey('posts.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    post_id = Column(String(60), ForeignKey('posts.id'), nullable=False)
 
-    def __init__(*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """Initializes comment."""
         super().__init__(*args, **kwargs)

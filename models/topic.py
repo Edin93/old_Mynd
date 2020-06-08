@@ -12,29 +12,21 @@ from sqlalchemy.dialects.mysql import TEXT
 from sqlalchemy.orm import relationship
 
 
-post_topics = Table('post_topics', Base.metadata,
-                    Column('post_id', String(255),
+post_topic = Table('post_topic', Base.metadata,
+                    Column('post_id', String(60),
                            ForeignKey('posts.id', onupdate='CASCADE',
-                               ondelete='CASCADE'),
-                           primary_key=True),
-                    Column('topic_id', String(255),
+                               ondelete='CASCADE')),
+                    Column('topic_id', String(60),
                            ForeignKey('topics.id', onupdate='CASCADE',
-                                      ondelete='CASCADE'),
-                           primary_key=True))
+                                      ondelete='CASCADE')))
 
-user_topics = Table('user_topics', Base.metadata,
-                    Column('user_id', String(255),
+user_topic = Table('user_topic', Base.metadata,
+                    Column('user_id', String(60),
                            ForeignKey('users.id', onupdate='CASCADE',
-                               ondelete='CASCADE'),
-                           primary_key=True),
-                    Column('username', String(255),
-                           ForeignKey('users.username', onupdate='CASCADE',
-                               ondelete='CASCADE'),
-                           primary_key=True),
-                    Column('topic_id', String(255),
+                               ondelete='CASCADE')),
+                    Column('topic_id', String(60),
                            ForeignKey('topics.id', onupdate='CASCADE',
-                                      ondelete='CASCADE'),
-                           primary_key=True))
+                                      ondelete='CASCADE')))
 
 class Topic(BaseModel, Base):
     """The Topic class."""
@@ -42,10 +34,10 @@ class Topic(BaseModel, Base):
     title = Column(String(255), nullable=False)
     description = Column(TEXT)
     posts = relationship("Post",
-                         secondary=post_topics,
+                         secondary=post_topic,
                          viewonly=False)
     users = relationship("User",
-                         secondary=user_topics,
+                         secondary=user_topic,
                          viewonly=False)
 
     def __init__(self, *args, **kwargs):

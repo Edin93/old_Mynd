@@ -15,9 +15,9 @@ import uuid
 class PostLike(BaseModel, Base):
     """The PostLike class."""
     __tablename__ = 'post_likes'
-    post_id = Column(String(255), ForeignKey('posts.id'), nullable=False)
-    username = Column(String(255), ForeignKey('users.username'), nullable=False)
+    post_id = Column(String(60), ForeignKey('posts.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
 
-    def __init__(*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """Initializes post."""
         super().__init__(*args, **kwargs)

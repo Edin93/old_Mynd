@@ -15,9 +15,7 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"User": User, "Comment": Comment, "Topic": Topic, "Log": Log,
-           "PostLike": PostLike, "Post": Post}
-
+classes = {"User": User, "Post": Post, "Comment": Comment, "PostLike": PostLike, "Log": Log, "Topic": Topic}
 
 class DBStorage:
     """DBStorage class."""
@@ -65,7 +63,7 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess_factory)
-        self.__session = Session
+        self.__session = Session()
 
     def close(self):
         """call remove() method on the private session attribute"""
