@@ -2,9 +2,10 @@
 """
 Contains user authentication methods and routes redirections.
 """
-from Mynd.api import app_views
+from api import app_views
 from flask import Blueprint, render_template, redirect, url_for, request, Flask
-from Mynd.models.user import User
+from models.user import User
+from models import storage
 
 
 @app_views.route('/login', methods=['GET'])

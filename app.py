@@ -2,18 +2,13 @@
 """ Flask Application """
 from flask import Flask, render_template, make_response, jsonify
 from models import storage
-from Mynd.api import app_views
+from api import app_views
 from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/Mynd/*": {"origins": "*"}})
-
-@app.teardown_appcontext
-def close_db(error):
-    """ Close Storage """
-    storage.close()
 
 
 @app.errorhandler(404)

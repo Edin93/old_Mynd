@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from flask import Flask, render_template
-from Mynd.api import app_views
+from api import app_views
 
 @app_views.route('/', strict_slashes=False)
 def base():
