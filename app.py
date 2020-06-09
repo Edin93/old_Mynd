@@ -3,6 +3,9 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
+def base():
+    return render_template('base.html', title='Mynd')
+
 @app.route('/home', strict_slashes=False)
 def home():
     return render_template('home.html', title='Home page')
@@ -15,7 +18,7 @@ def about():
 def login():
     return render_template('login.html', title='Login')
 
-@app.route('/join', strict_slashes=False)
+@app.route('/join', strict_slashes=False, methods=['POST'])
 def join():
     return render_template('join.html', title='Join')
 

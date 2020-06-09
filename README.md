@@ -18,4 +18,5 @@ sudo apt-get install python3.6
 pip3 install Flask
 pip3 install SQLAlchemy==1.2.5
 pip3 install SQLAlchemy-ImageAttach
+pip3 install flask-login
 ```
