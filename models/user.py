@@ -21,7 +21,7 @@ class User(BaseModel, Base):
     __tablename__ = 'users'
     username = Column(String(255), unique=True)
     fullname = Column(String(255), nullable=True)
-    email = Column(String(255), nullable=False)
+    email = Column(String(255), unique=True, nullable=False)
     password = Column(String(155), nullable=False)
     last_login = Column(DateTime, default=datetime.utcnow, nullable=True)
     """profile_img = image_attachment('Post')

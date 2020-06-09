@@ -98,3 +98,14 @@ class DBStorage:
             count = len(models.storage.all(cls).values())
 
         return count
+
+    def unique_user(self, email, username):
+        """
+        query on the current database session
+        and checks if the user already exists or not yet
+        """
+       users = self.__session.query(User).all()
+        for u in users:
+            if u.username == username or u.email == email:
+                return False
+        return True
