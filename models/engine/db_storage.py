@@ -86,6 +86,22 @@ class DBStorage:
 
         return None
 
+    def get_user_by_username(self, username):
+        """
+        Returns the object user based on username
+        None if not found
+        """
+
+        all_users = models.storage.all(User)
+        for value in all_users.values():
+            if (value.username == username):
+                d = value.__dict__.copy()
+                d = d.pop('password', None)
+                return d
+
+        return None
+
+
     def count(self, cls=None):
         """
         count the number of objects in storage
@@ -121,5 +137,5 @@ class DBStorage:
         users = self.__session.query(User).all()
         for u in users:
             if u.username == username and u.password == p:
-                return True
-        return False
+                return u
+        return None

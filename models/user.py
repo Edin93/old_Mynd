@@ -10,7 +10,7 @@ from models.post import Post
 from models.comment import Comment
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, Enum, Date
 from sqlalchemy.orm import relationship
 import hashlib
 from sqlalchemy_imageattach.entity import Image, image_attachment
@@ -20,10 +20,12 @@ class User(BaseModel, Base):
     """The User class."""
     __tablename__ = 'users'
     username = Column(String(255), unique=True)
-    fullname = Column(String(255), nullable=True)
+    fullname = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     password = Column(String(155), nullable=False)
-    last_login = Column(DateTime, default=datetime.utcnow, nullable=True)
+    birth_date = Column(Date, nullable=False)
+    gender = Column(Enum("Female", "Male"), nullable=False)
+    last_login = Column(DateTime, default=datetime.utcnow, nullable=False)
     """profile_img = image_attachment('Post')
     """
     posts = relationship("Post", cascade="all,delete", backref="user")
