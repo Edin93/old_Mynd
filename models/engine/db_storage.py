@@ -112,7 +112,7 @@ class DBStorage:
                 return False
         return True
 
-    def correct_password(self, username, password):
+    def correct_user_credentials(self, username, password):
         """
         query on the current database session
         and checks if the user already exists or not yet

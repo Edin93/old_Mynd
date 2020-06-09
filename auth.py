@@ -12,10 +12,18 @@ auth = Flask(__name__)
 def login():
     return render_template('login.html')
 
+@auth.route('/profile', methods=['GET'])
+def get_user_profile():
+    return render_template('profile.html')
+
 @auth.route('/login', methods=['POST'])
 def login_submit():
     username = request.form.get('username')
     password = request.form.get('password')
+
+    if storage.correct_user_credentials(username, password):
+        return redirect('/profile')
+    return redirect('/login')
 
 @auth.route('/join', methods=['GET'])
 def signup():
