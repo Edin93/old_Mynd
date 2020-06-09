@@ -18,9 +18,9 @@ def about():
 def login():
     return render_template('login.html', title='Login')
 
-@app.route('/join', strict_slashes=False, methods=['POST'])
-def join():
-    return render_template('join.html', title='Join')
+#@app.route('/join', strict_slashes=False, methods=['POST'])
+#def join():
+#    return render_template('join.html', title='Join')
 
 
 if __name__ == '__main__':

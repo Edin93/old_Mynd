@@ -1,1 +1,32 @@
 {% extends "layout.html" %}
+{% block content %}
+<div class="">
+  <form method="POST" action="/join" style="padding: 200px;">
+            <div class="field">
+                <div class="control">
+                    <input class="" type="email" name="email" placeholder="Email" autofocus="">
+                </div>
+            </div>
+
+	    <div class="field">
+                <div class="control">
+                    <input class="" type="fullname" name="fullname" placeholder="fullname">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="" type="text" name="username" placeholder="Username" autofocus="">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+
+            <button class="">Sign Up</button>
+        </form>
+</div>
+{% endblock %}

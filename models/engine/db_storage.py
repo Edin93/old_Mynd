@@ -104,7 +104,7 @@ class DBStorage:
         query on the current database session
         and checks if the user already exists or not yet
         """
-       users = self.__session.query(User).all()
+        users = self.__session.query(User).all()
         for u in users:
             if u.username == username or u.email == email:
                 return False
