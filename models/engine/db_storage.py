@@ -14,6 +14,8 @@ from models.post import Post
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+import hashlib
+
 
 classes = {"User": User, "Post": Post, "Comment": Comment, "PostLike": PostLike, "Log": Log, "Topic": Topic}
 
@@ -104,8 +106,20 @@ class DBStorage:
         query on the current database session
         and checks if the user already exists or not yet
         """
-       users = self.__session.query(User).all()
+        users = self.__session.query(User).all()
         for u in users:
             if u.username == username or u.email == email:
                 return False
         return True
+
+    def correct_password(self, username, password):
+        """
+        query on the current database session
+        and checks if the user already exists or not yet
+        """
+        p = hashlib.md5(password.encode()).hexdigest()
+        users = self.__session.query(User).all()
+        for u in users:
+            if u.username == username and u.password == p:
+                return True
+        return False
