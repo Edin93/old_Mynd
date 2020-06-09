@@ -1,27 +1,29 @@
 #!/usr/bin/python3
-from flask import Flask, render_template
+""" Flask Application """
+from flask import Flask, render_template, make_response, jsonify
+from models import storage
+from Mynd.api import app_views
+from flask_cors import CORS
+
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.register_blueprint(app_views)
+cors = CORS(app, resources={r"/Mynd/*": {"origins": "*"}})
 
-@app.route('/', strict_slashes=False)
-def base():
-    return render_template('base.html', title='Mynd')
-
-@app.route('/home', strict_slashes=False)
-def home():
-    return render_template('home.html', title='Home page')
-
-@app.route('/about', strict_slashes=False)
-def about():
-    return render_template('about.html', title='About page')
-
-@app.route('/login', strict_slashes=False)
-def login():
-    return render_template('login.html', title='Login')
-
-#@app.route('/join', strict_slashes=False, methods=['POST'])
-#def join():
-#    return render_template('join.html', title='Join')
+@app.teardown_appcontext
+def close_db(error):
+    """ Close Storage """
+    storage.close()
 
 
-if __name__ == '__main__':
+@app.errorhandler(404)
+def not_found(error):
+    """ 404 Error
+    ---
+    responses:
+      404:
+        description: a resource was not found
+    """
+    return make_response(jsonify({'error': "Not found"}), 404)
+if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

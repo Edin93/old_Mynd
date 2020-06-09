@@ -1,22 +1,21 @@
+#!/usr/bin/python3
 """
 Contains user authentication methods and routes redirections.
 """
-from models import storage
+from Mynd.api import app_views
 from flask import Blueprint, render_template, redirect, url_for, request, Flask
-from models.user import User
+from Mynd.models.user import User
 
-#auth = Blueprint('auth', __name__)
-auth = Flask(__name__)
 
-@auth.route('/login', methods=['GET'])
+@app_views.route('/login', methods=['GET'])
 def login():
     return render_template('login.html')
 
-@auth.route('/profile', methods=['GET'])
+@app_views.route('/profile', methods=['GET'])
 def get_user_profile():
     return render_template('profile.html')
 
-@auth.route('/login', methods=['POST'])
+@app_views.route('/login', methods=['POST'])
 def login_submit():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -25,11 +24,11 @@ def login_submit():
         return redirect('/profile')
     return redirect('/login')
 
-@auth.route('/join', methods=['GET'])
+@app_views.route('/join', methods=['GET'])
 def signup():
     return render_template('join.html')
 
-@auth.route('/join', methods=['POST'])
+@app_views.route('/join', methods=['POST'])
 def signup_submit():
     email = request.form.get('email')
     fullname = request.form.get('fullname')
@@ -42,7 +41,3 @@ def signup_submit():
     new_user = User(email=email, username=username, fullname=fullname, password=password)
     new_user.save()
     return redirect('/login')
-
-
-if __name__ == "__main__":
-    auth.run('0.0.0.0', 5000)
