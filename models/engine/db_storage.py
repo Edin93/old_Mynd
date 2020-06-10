@@ -95,9 +95,9 @@ class DBStorage:
         all_users = models.storage.all(User)
         for value in all_users.values():
             if (value.username == username):
-                d = value.__dict__.copy()
-                d = d.pop('password', None)
-                return d
+                # d = value.__dict__.copy()
+                # d = d.pop('password', None)
+                return value
 
         return None
 
