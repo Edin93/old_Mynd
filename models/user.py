@@ -14,12 +14,13 @@ from sqlalchemy import Column, String, DateTime, Enum, Date
 from sqlalchemy.orm import relationship
 import hashlib
 from sqlalchemy_imageattach.entity import Image, image_attachment
+from flask_login import UserMixin
 
 
-class User(BaseModel, Base):
+class User(UserMixin, BaseModel, Base):
     """The User class."""
     __tablename__ = 'users'
-    username = Column(String(255), unique=True)
+    username = Column(String(255), unique=True, nullable=False)
     fullname = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     password = Column(String(155), nullable=False)
