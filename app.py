@@ -11,11 +11,14 @@ from security import authenticate, identity
 from flask_jwt import JWT, jwt_required, current_identity
 
 
+UPLOAD_FOLDER = '/uploads/img/'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 jwt = JWT(app, authenticate, identity)
 app.config["JWT_SECRET_KEY"] = "Mynd"
 cors = CORS(app, resources={r"/Mynd/*": {"origins": "*"}})
@@ -31,11 +34,11 @@ def not_found(error):
     """
     return make_response(jsonify({'error': "Not found"}), 404)
 
+
 @app.route('/protected')
 @jwt_required()
 def protected():
-    return '%s' % current_identity.username == p
-
+    return current_identity
 
 
 if __name__ == "__main__":

@@ -14,10 +14,10 @@ from sqlalchemy import Column, String, DateTime, Enum, Date
 from sqlalchemy.orm import relationship
 import hashlib
 from sqlalchemy_imageattach.entity import Image, image_attachment
-from flask_login import UserMixin
+# from flask_login import UserMixin
 
 
-class User(UserMixin, BaseModel, Base):
+class User(BaseModel, Base):
     """The User class."""
     __tablename__ = 'users'
     username = Column(String(255), unique=True, nullable=False)
@@ -35,6 +35,7 @@ class User(UserMixin, BaseModel, Base):
     """topics = relationship("Topic", backref="user")
     """
     likes = relationship("PostLike", backref="user")
+
     def __init__(self, *args, **kwargs):
         """initializes user"""
         plain_text_pwd = None

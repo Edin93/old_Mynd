@@ -15,7 +15,7 @@ def login():
     return render_template('login.html')
 
 
-@app_views.route('/profile/<string:username>', methods=['GET'])
+@app_views.route('/users/<string:username>', methods=['GET'])
 def user_profile(username):
     user = storage.get_user_by_username(username)
     if user:
@@ -29,12 +29,13 @@ def login_submit():
     password = request.form.get('password')
     u = storage.correct_user_credentials(username, password)
     if u:
-        session['logged_in'] = True
+        # session['logged_in'] = True
         u.last_login = datetime.utcnow()
         u.save()
         login_user(u)
-        return redirect('/profile/' + u.username)
-    return redirect('/login')
+
+    #     return redirect('/profile/' + u.username)
+    # return redirect('/login')
 
 
 @app_views.route('/logout')
@@ -60,6 +61,7 @@ def signup_submit():
     gender = request.form.get('gender')
     if storage.unique_user(email, username) is False:
         return redirect('/join')
-    new_user = User(gender=gender, birth_date=birth_date, email=email, username=username, fullname=fullname, password=password)
+    new_user = User(gender=gender, birth_date=birth_date, email=email,
+                    username=username, fullname=fullname, password=password)
     new_user.save()
     return redirect('/login')
