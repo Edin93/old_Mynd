@@ -6,18 +6,38 @@ from flask import abort, jsonify, make_response, request
 from flask_jwt import JWT, jwt_required, current_identity
 
 
-@app_views.route('/user/<string:user_id>', methods=['POST', 'GET', 'PUT'])
+@app_views.route('/user/<string:username>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
-def user(user_id):
-    # if request.method == 'POST':
-    #     return 'POST'
-    # elif request.method == 'GET':
-    #     return "GET"
-    # else:
-    return user_id
+def user(username):
+    if request.method == 'GET':
+        return "GET"
+    elif request.method == "DELETE":
+        return "DELETE"
+    else:
+        return "PUT"
     
 
-@app_views.route('/users/')
+@app_views.route('/users/<string:username>/topics', methods=["GET"])
 @jwt_required()
-def users():
+def users(username):
+    pass
+
+@app_views.route('/users/<string:username>/topic/<string:topic_id>', methods=["GET", "POST", "DELETE"])
+@jwt_required()
+def user_topic(username, topic_id):
+    pass
+
+@app_views.route('/user/<string:username>/posts', methods=['GET'])
+@jwt_required()
+def user_posts(username):
+    pass
+
+@app_views.route('/user/<string:username>/post/<string:post_id>', methods=['POST', 'GET', 'PUT'])
+@jwt_required()
+def user_post(username, post_id):
+    pass
+
+
+@app_views.route('/user/<string:id>/reset', methods=['POST'])
+def get_user(id):
     pass
