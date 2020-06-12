@@ -17,7 +17,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 import hashlib
 
 
-classes = {"User": User, "Post": Post, "Comment": Comment, "PostLike": PostLike, "Log": Log, "Topic": Topic}
+classes = {"User": User, "Post": Post, "Comment": Comment,
+           "PostLike": PostLike, "Log": Log, "Topic": Topic}
+
 
 class DBStorage:
     """DBStorage class."""
@@ -66,10 +68,11 @@ class DBStorage:
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess_factory)
         self.__session = Session()
+        
 
     def close(self):
         """call remove() method on the private session attribute"""
-        self.__session.remove()
+        self.__session.clear()
 
     def get(self, cls, id):
         """
@@ -99,6 +102,12 @@ class DBStorage:
                 return value
         return None
 
+    def get_log_by_user_id(self, user_id):
+        all_logs = models.storage.all(Log)
+        for log in all_logs.values():
+            if (log.user_id == user_id and log.session_end == None):
+                return log
+        return None
 
     def count(self, cls=None):
         """

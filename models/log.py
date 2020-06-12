@@ -15,9 +15,8 @@ class Log(BaseModel, Base):
     """The Log class."""
     __tablename__ = 'logs'
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    #username = Column(String(255), ForeignKey('users.username'), nullable=False)
-    session_start = Column(DateTime, nullable=False)
-    session_end = Column(DateTime, nullable=False)
+    session_start = Column(DateTime, nullable=True)
+    session_end = Column(DateTime, nullable=True)
 
     def __init__(self, *args, **kwargs):
         """initializes log"""
