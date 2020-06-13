@@ -5,6 +5,7 @@ Containing the Post class.
 
 import models
 from models.base_model import BaseModel, Base
+from models.topic import post_topic
 from sqlalchemy import Column, ForeignKey, Integer, Unicode, String
 from sqlalchemy.dialects.mysql import TEXT
 """from sqlalchemy_imageattach.entity import Image
@@ -22,6 +23,9 @@ class Post(BaseModel, Base):
                             cascade="all, delete, delete-orphan")
     likes = relationship("PostLike", backref="posts",
                             cascade="all, delete, delete-orphan")
+    topics = relationship("Topic",
+                         secondary=post_topic,
+                         viewonly=False)
     def __init__(self, *args, **kwargs):
         """Initializes post."""
         super().__init__(*args, **kwargs)

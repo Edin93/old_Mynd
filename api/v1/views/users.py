@@ -90,7 +90,15 @@ def user_topic(username, topic_id):
         return ClientError(404, 'Topic not found for this user', 'Not Found')
 
     if request.method == "GET":
-        pass
+        user_posts = [post for post in user.posts if topic in post.topics]
+        return jsonify({
+            'record': 'User posts with a specific topic',
+            'topic_id': topic.id,
+            'topic_title': topic.title,
+            'username': user.username,
+            'user_id': user.user_id,
+            'posts': user_posts
+        })
     elif request.method == "DELETE":
         if not is_me:
             return ClientError(401, 'Access denied', 'Unauthorized')

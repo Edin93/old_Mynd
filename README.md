@@ -20,4 +20,5 @@ pip3 install SQLAlchemy==1.2.5
 pip3 install SQLAlchemy-ImageAttach
 pip3 install flask-cors
 pip3 install flask-login
+pip3 install flask-jwt
 ```
