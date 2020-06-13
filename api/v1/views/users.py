@@ -29,7 +29,7 @@ def user(username):
         if not is_me:
             return ClientError(401, 'Access denied', 'Unauthorized')
         storage.delete(user)
-        return {'status_code': 1, 'info': 'Deleted'}, 200
+        return {'status_code': 1, 'info': 'Deleted'}
     else:
         if not is_me:
             return ClientError(401, 'Access denied', 'Unauthorized')
@@ -50,7 +50,7 @@ def users(username):
         return ClientError(404, 'User not found', 'Not Found')
     topics = user.topics
     if request.method == "GET":
-        d = {"Topics": []}
+        d = { 'user_id': user.id, 'username': user.username, "Topics": []}
         for t in topics:
             td = {"id": t.id, "title": t.title, "description": t.description}
             d["Topics"].append(td)
@@ -82,19 +82,22 @@ def user_topic(username, topic_id):
     is_me = current_identity['username'] == username
     if not user:
         return ClientError(404, 'User not found', 'Not Found')
-    topics = user.topics
-    for t in topics:
-        if t.id == topic_id and request.method == "GET":
-            td = {"id": t.id, "title": t.title, "description": t.description}
-            return jsonify(td)
-        elif t.id == topic_id and request.method == "DELETE":
-            if not is_me:
-                return ClientError(401, 'Access denied', 'Unauthorized')
-            user.topics.remove(topic_id)
-            storage.delete(t)
-            storage.save()
-            return {'status_code': 1, 'info': 'Deleted'}, 200
-    return ClientError(404, 'Topic not found for this user', 'Not Found')
+    topic = storage.get(Topic, topic_id)
+    if not topic:
+        return ClientError(404, 'Topic not found', 'Not Found')
+
+    if topic not in user.topics:
+        return ClientError(404, 'Topic not found for this user', 'Not Found')
+
+    if request.method == "GET":
+        pass
+    elif request.method == "DELETE":
+        if not is_me:
+            return ClientError(401, 'Access denied', 'Unauthorized')
+        user.topics.remove(topic)
+        storage.save()
+        return {'status_code': 1, 'info': 'Deleted'}
+
 
 @app_views.route('/user/<string:username>/posts', methods=['GET', 'POST'])
 @jwt_required()
@@ -107,7 +110,8 @@ def user_posts(username):
         posts = user.posts
         d = {"Posts": []}
         for p in posts:
-            dp = {"id": p.id, "path": p.path, "description": p.description, "likes": p.likes.length, "comments": p.comments.length}
+            dp = {"id": p.id, "path": p.path, "description": p.description,
+                  "likes": len(p.likes), "comments": len(p.comments)}
             d["Posts"].append(dp)
         return jsonify(d)
     else:
@@ -137,8 +141,7 @@ def user_post(username, post_id):
     if request.method == 'GET':
         for p in posts:
             if p.id == post_id:
-                d =  {"id": p.id, "path": p.path, "description": p.description, "likes": p.likes.length, "comments": p.comments.length}
-                return jsonify(d)
+                return jsonify({"id": p.id, "path": p.path, "description": p.description, "likes": len(p.likes), "comments": len(p.comments)})
         return ClientError(404, 'Post not found', 'Not Found')
     if not is_me:
         return ClientError(401, 'Access denied', 'Unauthorized')
@@ -157,7 +160,8 @@ def user_post(username, post_id):
                 if 'path' in request.get_json():
                     setattr(p, 'path', request.get_json()['path'])
                 if 'description' in request.get_json():
-                    setattr(p, 'description', request.get_json()['description'])
+                    setattr(p, 'description',
+                            request.get_json()['description'])
                 p.save()
                 return {"status_code": 1, "info": "Created"}
         return ClientError(404, 'Post not found', 'Not Found')
