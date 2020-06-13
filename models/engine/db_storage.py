@@ -85,7 +85,8 @@ class DBStorage:
         all_cls = models.storage.all(cls)
         for value in all_cls.values():
             if (value.id == id):
-                return value.to_dict(hide_pass=True)
+                #return value.to_dict(hide_pass=True)
+                return value
         return None
 
     def get_user_by_username(self, username):

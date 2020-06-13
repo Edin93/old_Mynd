@@ -57,23 +57,21 @@ def users(username):
     else:
         if not is_me:
             return ClientError(401, 'Access denied', 'Unauthorized')
-        topic = Topic()
-        """
-        here we're supposed to provide the user a fixed list of topics
-        instead of creating a new one
-        """
-        if 'title' not in request.get_json():
-            abort(400, description='No valid entry')
-        desc = ''
-        if 'description' in request.get_json():
-            desc = request.get_json()['description']
-        setattr(topic, 'title', request.get_json()['title'])
-        setattr(topic, 'description', request.get_json()['desc'])
-        topic.save()
-        user.topics.append(topic)
-        storage.save()
-        return {"status_code": 1, "info": "Created"}
-
+        if 'id' in request.get_json():
+            topic = storage.get(Topic, request.get_json()['id'])
+            if not topic:
+                return ClientError(404, 'Topic not found', 'Not Found')
+            user.topics.append(topic)
+            storage.save()
+            return {"status_code": 1, "info": "Topic added"}
+        if 'title' in request.get_json():
+            all_topics = storage.all(Topic).values()
+            for topic in all_topics:
+                if topic.title == request.get_json()['title']:
+                    user.topics.append(topic)
+                    storage.save()
+                    return {"status_code": 1, "info": "Topic added"}
+            return ClientError(404, 'Topic not found', 'Not Found')
 
 
 @app_views.route('/users/<string:username>/topic/<string:topic_id>', methods=["GET", "DELETE"])
