@@ -19,4 +19,4 @@ def authenticate(username, password):
 def identity(payload):
     print(payload)
     user_id = payload['identity']
-    return storage.get(User, user_id)
+    return storage.get(User, user_id).to_dict()
