@@ -11,7 +11,9 @@ from models.log import Log
 from models.topic import Topic
 u1 = User()
 u1.username = 'James'
+
 u1.email = 'James@gmail.com'
+u1.fullname = 'James Bond'
 u1.password = 'jamespassword'
 print('-------------- U1 -------------')
 u1.save()
@@ -44,3 +46,5 @@ t1.posts.append(p1)
 t1.users.append(u1)
 t1.save()
 print(t1)
+print("THIS IS U1.TOPICS!!")
+print(u1.topics)

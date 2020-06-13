@@ -8,6 +8,7 @@ import models
 from models.base_model import BaseModel, Base
 from models.post import Post
 from models.comment import Comment
+from models.topic import user_topic
 from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String, DateTime, Enum, Date
@@ -32,8 +33,7 @@ class User(BaseModel, Base):
     posts = relationship("Post", cascade="all,delete", backref="user")
     comments = relationship("Comment", backref="user")
     logs = relationship("Log", backref="user")
-    """topics = relationship("Topic", backref="user")
-    """
+    topics = relationship("Topic", secondary=user_topic, viewonly=False)
     likes = relationship("PostLike", backref="user")
 
     def __init__(self, *args, **kwargs):

@@ -40,26 +40,61 @@ def user(username):
         return {"status_code": 1, "info": "Updated"}
 
 
-@app_views.route('/users/<string:username>/topics', methods=["GET"])
+@app_views.route('/users/<string:username>/topics', methods=["GET", "POST"])
 @jwt_required()
 def users(username):
     user = storage.get_user_by_username(username)
     is_me = current_identity['username'] == username
     if not user:
         return ClientError(404, 'User not found', 'Not Found')
-    topics = storage.get(Topic)
-    user_topics = []
-    
+    topics = user.topics
+    if request.method == "GET":
+        d = {"Topics": []}
+        for t in topics:
+            td = {"id": t.id, "title": t.title, "description": t.description}
+            d["Topics"].append(td)
+        return jsonify(d)
+    else:
+        if not is_me:
+            return ClientError(401, 'Access denied', 'Unauthorized')
+        topic = Topic()
+        """
+        here we're supposed to provide the user a fixed list of topics
+        instead of creating a new one
+        """
+        if 'title' not in request.get_json():
+            abort(400, description='No valid entry')
+        desc = ''
+        if 'description' in request.get_json():
+            desc = request.get_json()['description']
+        setattr(topic, 'title', request.get_json()['title'])
+        setattr(topic, 'description', request.get_json()['desc'])
+        topic.save()
+        user.topics.append(topic)
+        storage.save()
+        return {"status_code": 1, "info": "Created"}
 
 
 
-@app_views.route('/users/<string:username>/topic/<string:topic_id>', methods=["POST", "DELETE"])
+@app_views.route('/users/<string:username>/topic/<string:topic_id>', methods=["GET", "DELETE"])
 @jwt_required()
 def user_topic(username, topic_id):
     user = storage.get_user_by_username(username)
     is_me = current_identity['username'] == username
     if not user:
         return ClientError(404, 'User not found', 'Not Found')
+    topics = user.topics
+    for t in topics:
+        if t.id == topic_id and request.method == "GET":
+            td = {"id": t.id, "title": t.title, "description": t.description}
+            return jsonify(td)
+        elif t.id == topic_id and request.method == "DELETE":
+            if not is_me:
+                return ClientError(401, 'Access denied', 'Unauthorized')
+            user.topics.remove(topic_id)
+            storage.delete(t)
+            storage.save()
+            return {'status_code': 1, 'info': 'Deleted'}, 200
 
 
 @app_views.route('/user/<string:username>/posts', methods=['GET'])
