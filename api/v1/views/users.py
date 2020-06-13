@@ -95,13 +95,25 @@ def user_topic(username, topic_id):
             return {'status_code': 1, 'info': 'Deleted'}, 200
 
 
-@app_views.route('/user/<string:username>/posts', methods=['GET'])
+@app_views.route('/user/<string:username>/posts', methods=['GET', 'POST'])
 @jwt_required()
 def user_posts(username):
-    pass
+    user = storage.get_user_by_username(username)
+    is_me = current_identity['username'] == username
+    if not user:
+        return ClientError(404, 'User not found', 'Not Found')
+    if request.method == 'GET':
+        posts = user.posts
+        d = {"Posts": []}
+        for p in posts:
+            dp = {"id": p.id, "path": p.path, "description": p.description, "likes": p.likes.length, "comments": p.comments.length}
+            d["Posts"].append(dp)
+        return jsonify(d)
+    else:
+        pass
 
 
-@app_views.route('/user/<string:username>/post/<string:post_id>', methods=['POST', 'GET', 'PUT'])
+@app_views.route('/user/<string:username>/post/<string:post_id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
 def user_post(username, post_id):
     pass
