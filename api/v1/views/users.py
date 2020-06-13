@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from models.user import User
 from models.topic import Topic
+from models.post import Post
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
@@ -93,7 +94,7 @@ def user_topic(username, topic_id):
             storage.delete(t)
             storage.save()
             return {'status_code': 1, 'info': 'Deleted'}, 200
-
+    return ClientError(404, 'Topic not found for this user', 'Not Found')
 
 @app_views.route('/user/<string:username>/posts', methods=['GET', 'POST'])
 @jwt_required()
@@ -110,13 +111,56 @@ def user_posts(username):
             d["Posts"].append(dp)
         return jsonify(d)
     else:
-        pass
+        if not is_me:
+            return ClientError(401, 'Access denied', 'Unauthorized')
+        if not request.get_json():
+            return ClientError(400, 'Not a JSON', 'Invalid')
+        if 'path' not in request.get_json():
+            return ClientError(400, 'No valid Entry', 'Invalid')
+        post = Post()
+        post.path = request.get_json()['path']
+        if 'description' in request.get_json():
+            post.description = request.get_json()['description']
+        post.user_id = user.id
+        post.save()
+        return {"status_code": 1, "info": "Created"}
 
 
 @app_views.route('/user/<string:username>/post/<string:post_id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
 def user_post(username, post_id):
-    pass
+    user = storage.get_user_by_username(username)
+    is_me = current_identity['username'] == username
+    if not user:
+        return ClientError(404, 'User not found', 'Not Found')
+    posts = user.posts
+    if request.method == 'GET':
+        for p in posts:
+            if p.id == post_id:
+                d =  {"id": p.id, "path": p.path, "description": p.description, "likes": p.likes.length, "comments": p.comments.length}
+                return jsonify(d)
+        return ClientError(404, 'Post not found', 'Not Found')
+    if not is_me:
+        return ClientError(401, 'Access denied', 'Unauthorized')
+    if request.method == 'DELETE':
+        for p in posts:
+            if p.id == post_id:
+                storage.delete(p)
+                storage.save()
+                return {'status_code': 1, 'info': 'Deleted'}, 200
+        return ClientError(404, 'Post not found', 'Not Found')
+    else:
+        if not request.get_json():
+            return ClientError(400, 'Not a JSON', 'Invalid')
+        for p in posts:
+            if p.id == post_id:
+                if 'path' in request.get_json():
+                    setattr(p, 'path', request.get_json()['path'])
+                if 'description' in request.get_json():
+                    setattr(p, 'description', request.get_json()['description'])
+                p.save()
+                return {"status_code": 1, "info": "Created"}
+        return ClientError(404, 'Post not found', 'Not Found')
 
 
 @app_views.route('/user/<string:id>/reset', methods=['POST'])
