@@ -89,6 +89,18 @@ class DBStorage:
                 return value
         return None
 
+    def get_topic_by_title(self, title):
+        """
+        Returns the object topic based on title
+        None if not found
+        """
+
+        all_topics = models.storage.all(Topic)
+        for value in all_topics.values():
+            if (value.title == title):
+                return value
+        return None
+
     def get_user_by_username(self, username):
         """
         Returns the object user based on username
