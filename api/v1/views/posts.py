@@ -181,9 +181,9 @@ def post_comments(post_id):
     comment = Comment()
     comment.user_id = current_identity['id']
     comment.post_id = post_id
-    if 'text' in request.get_json():
+    if 'text' in request.get_json() and request.get_json()['text'].strip() != "":
         comment.text = request.get_json()['text']
-    elif 'content' in request.get_json():
+    elif 'content' in request.get_json() and request.get_json()['content'].strip() != "":
         comment.text = request.get_json()['content']
     else:
         return ClientError(400, 'Empty comments are not allowed', 'Error')
@@ -212,9 +212,9 @@ def edit_post_comment(post_id, comment_id):
         return ClientError(401, 'Access denied', 'Unauthorized')
     if not request.get_json():
         return ClientError(400, 'Not a JSON', 'Invalid')
-    if 'text' in request.get_json():
+    if 'text' in request.get_json() and request.get_json()['text'].strip() != "":
         comment.text = request.get_json()['text']
-    elif 'content' in request.get_json():
+    elif 'content' in request.get_json() and request.get_json()['content'].strip() != "":
         comment.text = request.get_json()['content']
     else:
         return ClientError(400, 'Empty comments are not allowed', 'Error')
