@@ -2040,3 +2040,12 @@ h1, h2, h3, h4, h5, h6 {
           box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.16);
 }
 /*# sourceMappingURL=style.css.map */
+
+.developer-social-icons {
+  margin-top: 14px;
+}
+
+.developer-social-icons i {
+  color: #3b3950;
+  margin: 0px 12px;
+}

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Mynd - About</title>
+    <title>Mynd</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Premium Bootstrap 4 Landing Page Template" />
     <meta name="keywords" content="bootstrap 4, premium, marketing, multipurpose" />
@@ -14,7 +14,8 @@
     <!-- css -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -43,10 +44,16 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
                     <li class="nav-item active">
-                        <a href="#home" class="nav-link">Home</a>
+                        <a href="#intro" class="nav-link">Intro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#why_choose_us" class="nav-link">Why choose us</a>
                     </li>
                     <li class="nav-item">
                         <a href="#features" class="nav-link">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
                     </li>
                     <!-- <li class="nav-item">
                         <a href="#pricing" class="nav-link">Pricing</a>
@@ -71,37 +78,49 @@
     </nav>
     <!-- Navbar End -->
 
-    <!-- Hero Start -->
-    <section class="hero-1-bg" style="background-image: url(images/hero-1-bg-img.png)" id="home">
+    <!-- Intro Start -->
+    <section class="hero-1-bg" style="background-image: url(images/hero-1-bg-img.png)" id="intro">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6">
-                    <h1 class="hero-1-title text-dark font-weight-bold text-shadow mb-4">Creative Landing Page</h1>
+                    <h1 class="hero-1-title text-dark font-weight-bold text-shadow mb-4">Mynd</h1>
                     <div class="w-75 mb-5 mb-lg-0">
-                        <p class="text-muted mb-5 pb-5 font-size-17">A creative & modern landing page with Lezir
-                            template & We love make things amazing.</p>
-                        <p class=""><span class="font-size-20 mr-2">🥳️</span>Nemo enim ipsam voluptatem quia voluptas
-                            sit aspernatur that is fugit.</p>
-                        <div class="subscribe-form">
+                        <p class="text-muted mb-3 font-size-17">A place to connect with others by sharing images according to your preferred topics and interests.</p>
+                        <!-- <p class=""><span class="font-size-20 mr-2">🥳️</span>Subscribe to our mailing list to get information about Mynd's launching in the market and to discover our newest features.</p> -->
+                        <!-- <div class="subscribe-form">
                             <form action="#">
                                 <input type="text" placeholder="Enter  email...">
                                 <button type="submit" class="btn btn-primary">Subscribe</button>
                             </form>
+                        </div> -->
+                            <h5 class="font-weight-bolder mr-1">Join the Mynd community in an instant</h5>
+                            <a class="btn btn-primary" href="https://www.google.com" target="_blank">Create an account</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-10">
-                    <div class=" mt-5 mt-lg-0">
-                        <img src="images/hero-1-img.png" alt="" class="img-fluid d-block mx-auto">
+                <div class="row mt-5">
+                    <div class="col-md pl-0 pr-0">
+                        <img src="images/img001.jpg" alt="" class="img-fluid d-block mx-auto">
+                    </div>
+                    <div class="col-md pl-0 pr-0">
+                        <img src="images/img002.jpg" alt="" class="img-fluid d-block mx-auto">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md pl-0 pr-0">
+                        <img src="images/img003.jpg" alt="" class="img-fluid d-block mx-auto">
+                    </div>
+                    <div class="col-md pl-0 pr-0">
+                        <img src="images/img004.jpg" alt="" class="img-fluid d-block mx-auto">
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Hero End -->
+    <!-- Intro End -->
 
     <!-- Why Choose Us Start -->
-    <section class="section">
+    <section class="section" id="why_choose_us">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4">
@@ -109,10 +128,9 @@
                         <div class="p-2 bg-soft-primary d-inline-block rounded mb-4">
                             <div class="icon-xxl uim-icon-primary"><i class="uim uim-cube"></i></div>
                         </div>
-                        <h3 class="">Why Choose Us ?</h3>
-                        <p class="text-muted mb-4">Nam libero tempore cum soluta as nobis est eligendi optio cumque
-                            nihile impedite quo minus id quod maxime.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        <h3>Why Choose Us ?</h3>
+                        <p class="text-muted mb-4">Mynd is built to help people connect together through images, with the a user-friendly interface and data protection and privacy as our top priorities.</p>
+                        <a href="#features" class="btn btn-outline-primary">Learn More</a>
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -122,17 +140,15 @@
                                 <div class="wc-box-icon">
                                     <i class="mdi mdi-collage"></i>
                                 </div>
-                                <h5 class="font-weight-bold mb-2 wc-title mt-4">Esay To Use</h5>
-                                <p class="text-muted mb-0 font-size-15 wc-subtitle">Sed ut perspiciatis unde omnis iste
-                                    natus error sit voluptatem.</p>
+                                <h5 class="font-weight-bold mb-2 wc-title mt-4">Easy To Use</h5>
+                                <p class="text-muted mb-0 font-size-15 wc-subtitle">A simple, yet elegant user interface experience.</p>
                             </div>
                             <div class="wc-box rounded text-center wc-box-primary p-4">
                                 <div class="wc-box-icon">
                                     <i class="mdi mdi-trending-up"></i>
                                 </div>
-                                <h5 class="font-weight-bold mb-2 wc-title mt-4">Grow Your Revenue</h5>
-                                <p class="text-muted mb-0 font-size-15 wc-subtitle">Sed ut perspiciatis unde omnis iste
-                                    natus error sit voluptatem.</p>
+                                <h5 class="font-weight-bold mb-2 wc-title mt-4">Community</h5>
+                                <p class="text-muted mb-0 font-size-15 wc-subtitle">Connect with others and browse images according to your favorite topics.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -140,17 +156,15 @@
                                 <div class="wc-box-icon">
                                     <i class="mdi mdi-security"></i>
                                 </div>
-                                <h5 class="font-weight-bold mb-2 wc-title mt-4">Analytics Security</h5>
-                                <p class="text-muted mb-0 font-size-15 wc-subtitle">Sed ut perspiciatis unde omnis iste
-                                    natus error sit voluptatem.</p>
+                                <h5 class="font-weight-bold mb-2 wc-title mt-4">Futuristic features</h5>
+                                <p class="text-muted mb-0 font-size-15 wc-subtitle">Newer features using new technogolies like AR will be implemented in the next versions of Mynd.</p>
                             </div>
                             <div class="wc-box rounded text-center wc-box-primary p-4">
                                 <div class="wc-box-icon">
                                     <i class="mdi mdi-database-lock"></i>
                                 </div>
                                 <h5 class="font-weight-bold mb-2 wc-title mt-4">Data Privacy</h5>
-                                <p class="text-muted mb-0 font-size-15 wc-subtitle">Sed ut perspiciatis unde omnis iste
-                                    natus error sit voluptatem.</p>
+                                <p class="text-muted mb-0 font-size-15 wc-subtitle">Your personal data won't be shared with any third-parties.</p>
                             </div>
                         </div>
                     </div>
@@ -161,120 +175,136 @@
     <!-- Why Choose Us End -->
 
     <!-- Features Start -->
-    <section class="section bg-light feather-bg-img" style="background-image: url(images/features-bg-img.png);"
-        id="About">
+    <section class="section bg-light pb-0 feather-bg-img" id="features">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="text-center mb-5">
-                        <h3 class="title mb-3">Awesome Features</h3>
-                        <p class="text-muted font-size-15">Et harum quidem rerum facilis est et expedita distinctio nam
-                            libero tempore cum soluta nobis eligendi cumque.</p>
+                        <h3 class="title mb-1">Features</h3>
+                        <p class="text-muted font-size-15">The first Mynd version will have the essential features. The technical team will keep working on new features and user stories, for every newer version.</p>
                     </div>
                 </div>
             </div>
 
+            <p class="font-weight-medium text-uppercase mt-4 mb-4 text-center">
+                <i class="mdi mdi-chart-bubble h1 text-primary mr-1 align-middle"></i>
+                Browse by trends or by the newest content
+            </p>
+            <div class="row align-items-center">
+                <div class="col-lg-5 offset-lg-1">
+                    <p class="text-muted font-size-15 mb-4">
+                        As a user you can browse the pictures added by others. You can choose to view either what's trending or what are the most recent posts. You have the freedom to choose the trends or the newest pictures according to a certain topic or regardless of it.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-4 mb-lg-0">
+                        <img src="images/feature1.jpg" alt="" class="img-fluid d-block mx-auto">
+                    </div>
+                </div>
+            </div>
+
+            <p class="font-weight-medium text-uppercase mt-4 mb-4 text-center">
+                <i class="mdi mdi-chart-bubble h1 text-primary mr-1 align-middle"></i>
+                Find your interests
+            </p>
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="mb-4 mb-lg-0">
-                        <img src="images/features-img-2.png" alt="" class="img-fluid d-block mx-auto">
+                        <img src="images/feature2.jpg" alt="" class="img-fluid d-block mx-auto">
                     </div>
                 </div>
-
                 <div class="col-lg-5 offset-lg-1">
-                    <p class="font-weight-medium text-uppercase mb-2"><i
-                            class="mdi mdi-chart-bubble h2 text-primary mr-1 align-middle"></i> Creative Features</p>
-                    <h3 class="font-weight-semibold line-height-1_4 mb-4">Build <b>community</b> & <b>conversion</b>
-                        with our suite of <b>social tool</b></h3>
-                    <p class="text-muted font-size-15 mb-4">Temporibus autem quibusdam et aut officiis debitis aut rerum
-                        a necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non recusandae
-                        itaque.</p>
-                    <p class="text-muted mb-2"><i class="icon-xs mr-1" data-feather="layout"></i> Donec pede justo
-                        fringilla vel nec.</p>
-                    <p class="text-muted"><i class="icon-xs mr-1" data-feather="life-buoy"></i> Cras ultricies mi eu
-                        turpis hendrerit fringilla.</p>
-                    <div class="mt-5">
-                        <a href="#" class="btn btn-primary mr-2">Read More</a>
-                        <a href="#" class="btn btn-soft-primary">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section feather-bg-img" style="background-image: url(images/features-bg-img-1.png)">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-5">
-                    <p class="font-weight-medium text-uppercase mb-2"><i
-                            class="mdi mdi-chart-bubble h2 text-primary mr-1 align-middle"></i> Creative Features</p>
-                    <h3 class="font-weight-semibold line-height-1_4 mb-4">We do the work you <b>stay focused</b> on
-                        <b>your customers</b>.</h3>
-                    <!-- <h3 class="font-weight-semibold line-height-1_4 mb-4">Build <b>community</b> & <b>conversion</b> with our suite of <b>social tool</b></h3> -->
-                    <p class="text-muted font-size-15 mb-4">Temporibus autem quibusdam et aut officiis debitis aut rerum
-                        a necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non recusandae
-                        itaque.</p>
-                    <p class="text-muted mb-2"><i class="icon-xs mr-1" data-feather="server"></i> Donec pede justo
-                        fringilla vel nec.</p>
-                    <p class="text-muted"><i class="icon-xs mr-1" data-feather="rss"></i> Cras ultricies mi eu turpis
-                        hendrerit fringilla.</p>
-                    <div class="mt-5">
-                        <a href="#" class="btn btn-primary mr-2">Read More</a>
-                        <a href="#" class="btn btn-soft-primary">Buy Now</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 offset-lg-1">
-                    <div class="mt-4 mt-lg-0">
-                        <img src="images/features-img-1.png" alt="" class="img-fluid d-block mx-auto">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="section bg-light feather-bg-img" style="background-image: url(images/features-bg-img.png);"
-        id="features">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="text-center mb-5">
-                        <h3 class="title mb-3">Awesome Features</h3>
-                        <p class="text-muted font-size-15">Et harum quidem rerum facilis est et expedita distinctio nam
-                            libero tempore cum soluta nobis eligendi cumque.</p>
-                    </div>
+                    <p class="text-muted font-size-15 mb-4">
+                        Unlike the majority of the other photo-sharing platforms, on Mynd you can find what you're interested in not by hashtags but by topics.
+                        As a user you can view the images according to the topics they're tagged in. You can also follow the topics that you're interested in.
+                    </p>
                 </div>
             </div>
 
+            <p class="font-weight-medium text-uppercase mt-4 mb-4 text-center">
+                <i class="mdi mdi-chart-bubble h1 text-primary mr-1 align-middle"></i>
+                User interactions
+            </p>
             <div class="row align-items-center">
+                <div class="col-lg-5 offset-lg-1">
+                    <p class="text-muted font-size-15 mb-4">
+                        As a user you can add images, tag them according to certain topics, write a description.
+                        You can also view other people's photos, comment them, like them and share them on other platforms.
+                    </p>
+                </div>
                 <div class="col-lg-6">
                     <div class="mb-4 mb-lg-0">
-                        <img src="images/features-img.png" alt="" class="img-fluid d-block mx-auto">
-                    </div>
-                </div>
-
-                <div class="col-lg-5 offset-lg-1">
-                    <p class="font-weight-medium text-uppercase mb-2"><i
-                            class="mdi mdi-chart-bubble h2 text-primary mr-1 align-middle"></i> Creative Features</p>
-                    <h3 class="font-weight-semibold line-height-1_4 mb-4">Build <b>community</b> & <b>conversion</b>
-                        with our suite of <b>social tool</b></h3>
-                    <p class="text-muted font-size-15 mb-4">Temporibus autem quibusdam et aut officiis debitis aut rerum
-                        a necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non recusandae
-                        itaque.</p>
-                    <p class="text-muted mb-2"><i class="icon-xs mr-1" data-feather="layout"></i> Donec pede justo
-                        fringilla vel nec.</p>
-                    <p class="text-muted"><i class="icon-xs mr-1" data-feather="life-buoy"></i> Cras ultricies mi eu
-                        turpis hendrerit fringilla.</p>
-                    <div class="mt-5">
-                        <a href="#" class="btn btn-primary mr-2">Read More</a>
-                        <a href="#" class="btn btn-soft-primary">Buy Now</a>
+                        <img src="images/feature3.jpg" alt="" class="img-fluid d-block mx-auto">
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
-
     <!-- Features End -->
 
+    <!-- About Start -->
+    <section class="section bg-light feather-bg-img" style="background-image: url(images/features-bg-img.png);"
+        id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center mb-5">
+                        <h3 class="title mb-3">About us</h3>
+                        <p class="text-muted font-size-15">Mynd was created by 3 Holberton school students. The idea came to life after we discussed about how we can apply some of the technogolies that we've worked with to build a fullstack application and some research and development. We wanted to not only build a platform as a part of our first year program but to create a chique place where online communities can interact through image sharing but with a different experience than the other known websites. Mynd was developed after about a month of R&D, prototyping, designing and developing.</p>
+                        <p class="text-muted font-size-15">If you're interested in the technologies that we used to build Mynd, feel free to check Mynd's <a href="https://github.com/Edin93/Mynd" target="_blank">github repository</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-deck">
+                <div class="card">
+                  <img class="card-img-top" src="/images/av3.png" alt="Card image cap">
+                  <div class="card-body">
+                    <div class="top-card-body">
+                        <h5 class="card-title">Mariem Matri</h5>
+                        <p class="card-text">Mariem was a food industry engineer who decided to switch career and dive into the tech world. She's a fast learner, loves learning new technogolies and is always looking for new technical challanges.</p>
+                    </div>
+                    <div class="developer-social-icons d-flex justify-content-center">
+                        <a href="https://github.com/MatriMariem"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/mariem-matri-249620178/"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/MatriMariem"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <img class="card-img-top" src="/images/av2.png" alt="Card image cap">
+                  <div class="card-body">
+                    <div class="top-card-body">
+                        <h5 class="card-title">Adib Grouz</h5>
+                        <p class="card-text">Adib is a self-taught software engineer. He's been developing, working and building websites and software for different companies since the age of 13. Adib loves building a state of the art fullstack applications.</p>
+                    </div>
+                    <div class="developer-social-icons d-flex justify-content-center">
+                        <a href="https://github.com/s0m35h1t"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/adib-grouz-ba4936190/"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/GruiseAdib"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <img class="card-img-top" src="/images/av1.png" alt="Card image cap">
+                  <div class="card-body">
+                    <div class="top-card-body">
+                        <h5 class="card-title">Houssem Eddine Ben Khalifa</h5>
+                        <p class="card-text">After studing networking, Houssem switched to the software engineering industry. Before joining Holberton school to hone his tech skills, He worked as a Teacher assistant and a React developer.</p>
+                    </div>
+                    <div class="developer-social-icons d-flex justify-content-center">
+                        <a href="https://github.com/Edin93"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/houssem-eddine-ben-khalifa-b0a2a412b/"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/h_edin93"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+    </section>
+    <!-- About End -->
 
     <!-- Footer Start -->
     <section class="footer" style="background-image: url(images/footer-bg.png)">
@@ -283,8 +313,7 @@
                 <div class="col-lg-4">
                     <div class="mb-5">
                         <img src="images/logo-light.png" alt="" class="" height="24">
-                        <p class="text-white-50 my-4 font-size-15">Cras ultricies mi eu turpis sit hendrerit fringilla
-                            vestibulum ante ipsum primis in faucibus ultrices posuere cubilia.</p>
+                        <p class="text-white-50 my-4 font-size-15">Mynd is a social networking website where users can share and view images according to topics.</p>
                         <ul class="list-inline footer-social-icon-content">
                             <li class="list-inline-item mr-4"><a href="#" class="footer-social-icon"><i class=""
                                         data-feather="facebook"></i></a></li>
