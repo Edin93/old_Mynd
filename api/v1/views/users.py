@@ -29,6 +29,7 @@ def user(username):
         if not is_me:
             return ClientError(401, 'Access denied', 'Unauthorized')
         storage.delete(user)
+        storage.save()
         return {'status_code': 1, 'info': 'Deleted'}
     else:
         if not is_me:
@@ -62,6 +63,8 @@ def users(username):
             topic = storage.get(Topic, request.get_json()['id'])
             if not topic:
                 return ClientError(404, 'Topic not found', 'Not Found')
+            if topic in user.topics:
+                return ClientError(409, "Topic already followed")
             user.topics.append(topic)
             storage.save()
             return {"status_code": 1, "info": "Topic added"}
@@ -69,6 +72,8 @@ def users(username):
             all_topics = storage.all(Topic).values()
             for topic in all_topics:
                 if topic.title == request.get_json()['title']:
+                    if topic in user.topics:
+                        return ClientError(409, "Topic already followed")
                     user.topics.append(topic)
                     storage.save()
                     return {"status_code": 1, "info": "Topic added"}
@@ -96,7 +101,7 @@ def user_topic(username, topic_id):
             'topic_id': topic.id,
             'topic_title': topic.title,
             'username': user.username,
-            'user_id': user.user_id,
+            'user_id': user.id,
             'posts': user_posts
         })
     elif request.method == "DELETE":

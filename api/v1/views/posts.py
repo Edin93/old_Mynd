@@ -8,6 +8,7 @@ from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flask_jwt import JWT, jwt_required, current_identity
+from api.v1.views.util.helpers import ClientError
 
 
 @app_views.route('/user/<string:username>/posts', methods=['GET', 'POST'])
@@ -29,7 +30,7 @@ def user_posts(username):
                   "comments": len(p.comments)}
             d["Posts"].append(dp)
         return jsonify(d)
-    else:
+    elif request.method == 'POST':
         if not is_me:
             return ClientError(401, 'Access denied', 'Unauthorized')
         if not request.get_json():
@@ -47,7 +48,7 @@ def user_posts(username):
                     post.topics.append(topic)
         if 'topic_titles' in request.get_json():
             for title in request.get_json()['topic_titles']:
-                topic = storage.get_topic_by_title(title):
+                topic = storage.get_topic_by_title(title)
                 if topic:
                     post.topics.append(topic)
         post.user_id = user.id
@@ -85,9 +86,9 @@ def user_post(username, post_id):
     elif not request.get_json():
         return ClientError(400, 'Not a JSON', 'Invalid')
     if 'path' in request.get_json():
-        setattr(p, 'path', request.get_json()['path'])
+        setattr(post, 'path', request.get_json()['path'])
     if 'description' in request.get_json():
-        setattr(p, 'description', request.get_json()['description'])
+        setattr(post, 'description', request.get_json()['description'])
     if 'topic_ids' in request.get_json():
         post.topics = []
         for topic_id in request.get_json()['topic_ids']:
@@ -97,7 +98,7 @@ def user_post(username, post_id):
     if 'topic_titles' in request.get_json():
         post.topics = []
         for title in request.get_json()['topic_titles']:
-            topic = storage.get_topic_by_title(title):
+            topic = storage.get_topic_by_title(title)
             if topic:
                 post.topics.append(topic)
     storage.save()
@@ -154,7 +155,7 @@ def post_topic(username, post_id, topic_id):
     if request.method == 'GET':
         return {"status_code": 1, "info": "Post contains this topic"}
     if not is_me:
-        return ClientError(401, 'Access denied', 'Unauthorized'
+        return ClientError(401, 'Access denied', 'Unauthorized')
     post.topics.remove(topic)
     storage.save()
     return {"status_code": 1, "info": "Topic deleted from this post"}
@@ -169,7 +170,7 @@ def post_comments(post_id):
         return ClientError(404, 'Post not found', 'Not Found')
     user = storage.get(User, post.user_id)
     if request.method == 'GET':
-        d = {'Post owner': user.username, 'Post id': post_id, 'number of comments': len(post.comments), 'comments' = []}
+        d = {'Post owner': user.username, 'Post id': post_id, 'number of comments': len(post.comments), 'comments': []}
         for comment in post.comments:
             dc = {'comment id': comment.id,
                   'written by': storage.get(User, comment.user_id).username,

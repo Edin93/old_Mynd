@@ -31,7 +31,7 @@ user_topic = Table('user_topic', Base.metadata,
 class Topic(BaseModel, Base):
     """The Topic class."""
     __tablename__ = 'topics'
-    title = Column(String(255), nullable=False)
+    title = Column(String(255), nullable=False, unique=True)
     description = Column(TEXT)
     posts = relationship("Post",
                          secondary=post_topic,

@@ -30,11 +30,11 @@ class User(BaseModel, Base):
     last_login = Column(DateTime, default=datetime.utcnow, nullable=False)
     """profile_img = image_attachment('Post')
     """
-    posts = relationship("Post", cascade="all,delete", backref="user")
-    comments = relationship("Comment", backref="user")
-    logs = relationship("Log", backref="user")
+    posts = relationship("Post", backref="user", cascade="all, delete, delete-orphan")
+    comments = relationship("Comment", backref="user", cascade="all, delete, delete-orphan")
+    logs = relationship("Log", backref="user", cascade="all, delete, delete-orphan")
     topics = relationship("Topic", secondary=user_topic, viewonly=False)
-    likes = relationship("PostLike", backref="user")
+    likes = relationship("PostLike", backref="user", cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """initializes user"""

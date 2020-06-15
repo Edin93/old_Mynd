@@ -43,10 +43,12 @@ def get_topic_posts(topic_id):
 @jwt_required()
 def new_topic():
     if request.method == 'POST':
-        title = request.get_json()['title']
-        description = request.get_json()['description']
-        if title is None:
+        if "title" not in request.get_json():
             return ClientError(301, 'Invalid entry')
+        title = request.get_json()['title']
+        if title.strip() == "" or storage.get_topic_by_title(title):
+            return ClientError(409, 'Topic already exists')
+        description = request.get_json()['description'] if "description" in request.get_json() else ""
         topic = Topic(**{'title': title, 'description': description})
         topic.save()
         return jsonify({'status_code': 1, 'id': topic.id})
