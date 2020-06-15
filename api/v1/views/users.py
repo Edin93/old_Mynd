@@ -9,6 +9,12 @@ from flask_jwt import JWT, jwt_required, current_identity
 from api.v1.views.util.helpers import ClientError
 
 
+@app_views.route('/users', methods=['GET'])
+@jwt_required()
+def get_users():
+    users = storage.all(User).values()
+    return jsonify({"count": len(users), "users": [{"id": user.id, "username": user.username} for user in users]})
+
 @app_views.route('/user/<string:username>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
 def user(username):

@@ -2,6 +2,7 @@
 
 from models.comment import Comment
 from models.topic import Topic
+from models.user import User
 from models.post import Post
 from models.post_like import PostLike
 from models import storage
@@ -119,7 +120,7 @@ def post_topics(username, post_id):
     if post not in user.posts:
         return ClientError(404, 'Post not found for this user', 'Not Found')
     if request.method == 'GET':
-        topic_list = [topic.title for title in post.topics]
+        topic_list = [topic.title for topic in post.topics]
         return jsonify(topic_list)
     if not is_me:
         return ClientError(401, 'Access denied', 'Unauthorized')
