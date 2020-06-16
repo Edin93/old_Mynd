@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "logs",
+  "info": {
+    "name": "Log"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "session_start": {
+      "type": "datetime"
+    },
+    "session_end": {
+      "type": "datetime"
+    }
+  }
+}
