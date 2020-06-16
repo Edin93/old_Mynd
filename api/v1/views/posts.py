@@ -30,6 +30,10 @@ def user_posts(username):
                   "topics": post_topics, "likes": len(p.likes),
                   "comments": len(p.comments)}
             d["Posts"].append(dp)
+            d["owner"] = {
+                "username": username,
+                "user_id": user.id
+            }
         return jsonify(d)
     elif request.method == 'POST':
         if not is_me:
@@ -73,11 +77,17 @@ def user_post(username, post_id):
         return ClientError(404, 'Post not found for this user', 'Not Found')
     if request.method == 'GET':
         post_topics = [topic.title for topic in post.topics]
-        return jsonify({"id": post.id, "path": post.path,
-                                "description": post.description,
-                                "topics": post_topics,
-                                "likes": len(post.likes),
-                                "comments": len(post.comments)})
+        return jsonify({
+            "id": post.id, "path": post.path,
+            "description": post.description,
+            "topics": post_topics,
+            "likes": len(post.likes),
+            "comments": len(post.comments),
+            "owner": {
+                "username": username,
+                "user_id": user.id
+            }
+        })
     if not is_me:
         return ClientError(401, 'Access denied', 'Unauthorized')
     if request.method == 'DELETE':
