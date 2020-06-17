@@ -1,13 +1,9 @@
 <template>
   <div class="main">
     <sui-grid centered :columns="3">
-      <sui-grid-column>
+      <sui-grid-column v-if="post">
         <!-- <sui-segment> -->
-        <sui-image
-          src="https://semantic-ui.com/images/avatar2/large/kristy.png"
-          fluid
-        />
-
+          <sui-image class="pimg" :src="'http://localhost:1337' + post.image.url" fluid />
         <sui-comment-group>
           <h3 is="sui-header" dividing>Comments</h3>
 
@@ -46,7 +42,6 @@
               </sui-comment-actions>
             </sui-comment-content>
           </sui-comment>
-
           <sui-comment>
             <sui-comment-avatar
               src="https://semantic-ui-vue.github.io/static/images/avatar/small/matt.jpg"
@@ -82,36 +77,28 @@
           <sui-segment>
             <div>
               <sui-image
-                src="https://semantic-ui-vue.github.io/static/images/avatar/small/matt.jpg"
+                :src="
+                  'http://localhost:1337' +
+                    post.user.profile_img.formats.thumbnail.url
+                "
                 avatar
               />
-              <span>Username</span>
+              <span>{{ post.user.username }}</span>
             </div>
             <div text-align="left" class="details">
               <b>Description</b>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Sapiente, suscipit?
+                {{ post.description }}
               </p>
             </div>
             <div class="tags">
-              <a is="sui-label" tag>
-                Chill
-              </a>
-              <a is="sui-label" tag>
-                Travel
-              </a>
-              <a is="sui-label" tag>
-                Nature
-              </a>
+              <!-- <a v-for="topic in post.topics"  is="sui-label" tag>
+                {{ topic.title }}
+              </a> -->
             </div>
             <div class="likes">
-              <sui-icon
-                slot="trigger"
-                name="heart"
-                color="red"
-                size="large"
-              /> 2k
+              <sui-icon slot="trigger" name="heart" color="red" size="large" />
+              2k
             </div>
           </sui-segment>
         </sui-rail>
@@ -122,7 +109,33 @@
 </template>
 
 <script>
-export default {};
+import gql from "graphql-tag";
+export default {
+  components: {},
+  apollo: {
+    post: gql`
+      query getPost {
+        post(id: 1) {
+          description
+          id
+          image {
+            url
+          }
+          user {
+            username
+            id
+            profile_img {
+              formats
+            }
+          }
+          topics {
+            id
+          }
+        }
+      }
+    `
+  }
+};
 </script>
 <style scoped>
 .main {
@@ -139,6 +152,10 @@ export default {};
   margin: 5px;
 }
 .likes {
-    margin-top: 1em;
+  margin-top: 1em;
+}
+.pimg {
+  border-radius: .28571429rem;
+box-shadow: 0 1px 3px 0 #d4d4d5,0 0 0 1px #d4d4d5;
 }
 </style>

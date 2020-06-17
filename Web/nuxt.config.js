@@ -42,8 +42,19 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    'semantic-ui-vue/nuxt'
+    'semantic-ui-vue/nuxt',
+    '@nuxtjs/apollo'
   ],
+  /*
+  * Apollo configuration
+  */
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://localhost:1337/graphql'
+      }
+    }
+  },
   /*
   ** Axios module configuration
   */

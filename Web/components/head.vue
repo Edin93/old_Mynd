@@ -2,7 +2,7 @@
   <div>
     <sui-menu fixed>
       <sui-container>
-        <a is="sui-menu-item" class="header">
+        <a is="sui-menu-item" href="/" class="header">
           <img src="../assets/images/logo.png" class="logo" />
           Mynd
         </a>
