@@ -23,6 +23,7 @@
     "strapi-plugin-graphql": "3.0.2",
     "strapi-plugin-upload": "3.0.2",
     "strapi-plugin-users-permissions": "3.0.2",
+    "strapi-sdk-javascript": "^0.3.3",
     "strapi-utils": "3.0.2"
   },
   "author": {
